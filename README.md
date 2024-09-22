@@ -57,17 +57,27 @@ The API should now be accessible at `http://localhost:8000/`.
 
 
 ## Basic Usage
-##requests should have the jwt token in headers except when registering a user
 
-1-User signs up at /api/users/
-2-To initiate a connection 'conversation' between two users:
-  -create a ChatRoom at /api/chat_rooms/ with type private/group.
-  -create a UserChat for each user at /api/user_chats/.
-  -now a user can send a message to the chat room that is common between the two users that one was created at first before giving each user his own copy of the conversation.
-  -users can upload attachments as messages in the conversation can react to messages
-3-all messages should be encrypted on the front end with the private key that is stored at the user's local storage that was given to him when creating a chatroom.
-4-to connect to the WebSockets for real-time updates and messages:
-  -connect to ws://localhost:8000/ws/user_status/ for tracking users status online/offline.
-  -connect to ws://localhost:8000/ws/general_updates/to receive updates from the chat rooms the user is connected to.
+**Note:** All requests should include the JWT token in headers except when registering a user.
 
-#you can use the Postman JSON file in the root directory to test the API endpoints.
+1. User Registration
+   - Sign up at `/api/users/`
+
+2. Initiating a Conversation
+   - Create a ChatRoom at `/api/chat_rooms/` (type: private/group)
+   - Create a UserChat for each user at `/api/user_chats/`
+   - Users can now send messages to the common chat room
+   - Users can upload attachments as messages and react to messages
+
+3. Message Encryption
+   - All messages should be encrypted on the front end
+   - Use the private key stored in the user's local storage
+   - This key is provided when creating a chat room
+
+4. WebSocket Connections
+   - For real-time updates and messages:
+     - User status (online/offline): `ws://localhost:8000/ws/user_status/`
+     - General updates: `ws://localhost:8000/ws/general_updates/`
+
+5. API Testing
+   - Use the Postman JSON file in the root directory to test API endpoints
