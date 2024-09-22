@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="auth-container" style="display: none">
+        <div class="right-container">
+            <!-- =======================================login container======================================= -->
+            <div id="register-error" style="color: rgb(153, 0, 0); display: none;"></div>
+            <div id="register-container" style="display: none">
+                <h1>Registration</h1>
+                <p>Please enter your details to register</p>
+
+                <form id="register-form" enctype="multipart/form-data">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <br>
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" required>
+                    <br>
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" required>
+                    <br>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <br>
+                    <label for="profile_picture">Profile Picture:</label>
+                    <input type="file" id="profile_picture" name="profile_picture">
+                    <br>
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4" cols="50"></textarea>
+                    <br>
+                    <button type="submit">Register</button>
+                    <span>Already registered? <a href="#" id="switch-to-login">Login</a></span>
+                </form>
+            </div>
+            <!-- =======================================login container======================================= -->
+            <div id="login-error" style="color: rgb(153, 0, 0); display: none;"></div>
+            <div id="login-container" style="display: block;">
+                <h1>Login</h1>
+                <p>Please enter your credentials to login</p>
+        
+                <form id="login-form">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+                    <label for="login_email">Email:</label>
+                    <input type="email" id="login_email" name="email" required>
+                    <br>
+                    <label for="login_password">Password:</label>
+                    <input type="password" id="login_password" name="password" required>
+                    <br>
+                    <button type="submit">Login</button>
+                    <span>Not registered? <a href="#" id="switch-to-register">Register</a></span>
+                </form>
+            </div>
+        </div>
+        <div class="left-container">
+        </div>
+    </div>
+
+    <!-- =========================================chat container====================================== -->
+    <div class="chats-container">
+        <div class="left-container">
+            <div class="info">
+                <img class="user-picture" src="{% static 'temp.jpeg' %}" alt="">
+                <span class="user-full-name">carlito spacto</span>
+                <span class="search-icon">search</span>
+            </div>
+            <hr>
+            <div class="chats">
+                <ul>
+                    <li class="chat-box">
+                        <img src="{% static 'temp.jpeg' %}" alt="" class="chat-box-img">
+                        <div class="chat-box-name">James ROd</div>
+                        <div class="timestamp">12:45 PM</div>
+                        <div class="last-message">Hi how are ya</div>
+                    </li>
+                    <li class="chat-box">
+                        <img src="{% static 'temp.jpeg' %}" alt="" class="chat-box-img">
+                        <div class="chat-box-name">James ROd</div>
+                        <div class="timestamp">12:45 PM</div>
+                        <div class="last-message">Hi how are ya</div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="right-container"></div>
+    </div>
+
+<script>
+    const registerForm = document.getElementById('register-form');
+    const loginForm = document.getElementById('login-form');
+    const registerContainer = document.getElementById('register-container');
+    const loginContainer = document.getElementById('login-container');
+    const switchToLogin = document.getElementById('switch-to-login');
+    const switchToRegister = document.getElementById('switch-to-register');
+    const csrfToken = document.getElementsByName('csrfmiddlewaretoken').value;
+
+    registerForm.addEventListener('submit', (event) => {
+        event.preventDefault();    
+        const formData = new FormData(registerForm);
+
+        const fileField = document.getElementById('profile_picture');
+
+        // Check if the file input is empty
+        if (fileField.files.length === 0) {
+            // Remove the profile_picture field if no file is selected
+            formData.delete('profile_picture'); // Use the name used in your form
+        } else {
+            // Append the file if it exists
+            formData.append('profile_picture', fileField.files[0]);
+        }
+        
+        fetch('/api/users/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            registerContainer.style.display = 'none';
+            loginContainer.style.display = 'block';
+            document.getElementById('register-error').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('register-error').innerText = error.message; // Display error message
+            document.getElementById('register-error').style.display = 'block';
+        });
+    });
+
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        
+        let loginFormData = new FormData(loginForm);
+        
+        fetch('/api/auth/token/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            body: loginFormData
+        }).then(response => {
+            console.log(response)
+            if (!response.ok) {
+                console.log(response)
+                throw new Error(response.statusText + '. Invalid email or password.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            document.getElementById('register-error').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('login-error').innerText = error.message; // Display error message
+            document.getElementById('login-error').style.display = 'block';
+        });
+    });
+
+    switchToLogin.addEventListener('click', (event) => {
+        event.preventDefault();
+        registerContainer.style.display = 'none';
+        loginContainer.style.display = 'block';
+    });
+
+    switchToRegister.addEventListener('click', (event) => {
+        event.preventDefault();
+        loginContainer.style.display = 'none';
+        registerContainer.style.display = 'block';
+    });
+</script>
+</body>
+</html>
