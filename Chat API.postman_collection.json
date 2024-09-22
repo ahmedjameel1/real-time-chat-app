@@ -1,0 +1,1033 @@
+{
+	"info": {
+		"_postman_id": "c7655698-373d-4cf6-a7af-31a1158a00a4",
+		"name": "Chat API",
+		"description": "API for managing chat rooms, messages, reactions, and notifications.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24430041"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "askldjaskljdksasdas",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "klasjdklasjd",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "askdaskld",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "kalsjjdaklsdjkaslj@askdjask.comasasd",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "kasjdkasjdklasj",
+									"type": "text"
+								},
+								{
+									"key": "profile_picture",
+									"type": "file",
+									"src": "/C:/Users/hp/Desktop/465b1ad0301654a9c053718db3cd91b7.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/32/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"32",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bio\": \"newbio\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/users/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/users/28/delete/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"28",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Obtain Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"melzend@gmail.com\", \"password\": \"amherejust4allah\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/token/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"refresh\": \"your_refresh_token\"}"
+						},
+						"url": {
+							"raw": "http://localhost:8000/auth/token/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"auth",
+								"token",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat Rooms",
+			"item": [
+				{
+					"name": "List Chat Rooms",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/chat_rooms/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chat_rooms",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Chat Room",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"room_type\": \"private\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/chat_rooms/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chat_rooms",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Chat Room",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/chat_rooms/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chat_rooms",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Chat Room",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"room_type\": \"group\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/chat_rooms/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chat_rooms",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Chat Room",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/chat_rooms/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chat_rooms",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Join Chat Room",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/chat_rooms/1/join/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chat_rooms",
+								"1",
+								"join",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Leave Chat Room",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/chat_rooms/1/leave/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"chat_rooms",
+								"1",
+								"leave",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Chat Rooms",
+			"item": [
+				{
+					"name": "List User Chat Rooms",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user_chats/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user_chats",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Chat Room",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"user\": 1, \"chat_room\": 1}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user_chats/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user_chats",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve User Chat Room",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user_chats/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user_chats",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Chat Room",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"is_active\": true, \"is_read\": false}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user_chats/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user_chats",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Chat Room",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/user_chats/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"user_chats",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "Create Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"chat_room\": 1, \"content\": \"aGVsbGxvdyA=\", \"publick_key\": \"public key=\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/messages/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"messages",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Message",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/messages/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"messages",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Message",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"content\": \"aGVsbGxvdyA=\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/messages/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"messages",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Message",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/messages/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"messages",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Attachments",
+			"item": [
+				{
+					"name": "List Attachments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/attachments/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"attachments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Attachment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/hp/Desktop/AhmedJameelCV.pdf"
+								},
+								{
+									"key": "message",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "file_type",
+									"value": "document",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/attachments/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"attachments",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reactions",
+			"item": [
+				{
+					"name": "List Reactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reactions/?message=2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reactions",
+								""
+							],
+							"query": [
+								{
+									"key": "message",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Reaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"message\": 2, \"reaction_type\": \"like\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reactions/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reactions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Reaction",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reactions/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"reactions",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "List Notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notifications",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"body\": \"You have a new message\", \"user\": 1, \"chat_room\": 1}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notifications",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Notification",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/1/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"notifications",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Notification",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/notifications/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"notifications",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "E2EE Keys",
+			"item": [
+				{
+					"name": "Create Key",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{aj_access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"public_key\": \"public_key\",\r\n    \"private_key\": \"private_key\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/e2ee_keys/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"e2ee_keys",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
